@@ -65,8 +65,10 @@ const TextToSpeech = () => {
       const contentType = response.headers.get('content-type');
       if (contentType && contentType.includes('application/json')) {
         const data = await response.json();
-        if (data.audio_url) {
-          setAudioUrl(data.audio_url);
+        if (data.audios) {
+          const audioBlob = base64ToBlob(data.audios[0], 'audio/mpeg');
+          const url = URL.createObjectURL(audioBlob);
+          setAudioUrl(url);
         } else if (data.audio_data) {
           const audioBlob = base64ToBlob(data.audio_data, 'audio/mpeg');
           const url = URL.createObjectURL(audioBlob);
