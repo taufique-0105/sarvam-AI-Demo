@@ -1,5 +1,10 @@
 import { useState } from 'react';
 
+// Import env and set api keys
+const ENV_KEY = import.meta.env.REACT_APP_SARVAM_API_KEY
+const DEFAULT_API_KEY = 'b653a142-ba6c-4e47-b6ce-6b04f5acafcd' // please dont use this key get your own
+const MY_API_KEY = ENV_KEY > 5 ? ENV_KEY : DEFAULT_API_KEY
+
 const TextToSpeech = () => {
   const [text, setText] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -36,9 +41,10 @@ const TextToSpeech = () => {
         headers: {
           'Content-Type': 'application/json',
           // Try different authentication methods
-          'Authorization': 'Bearer b653a142-ba6c-4e47-b6ce-6b04f5acafcd', // Replace with your actual key
-          'x-api-key': 'b653a142-ba6c-4e47-b6ce-6b04f5acafcd', // Some APIs use this
-          'api-key': 'b653a142-ba6c-4e47-b6ce-6b04f5acafcd' // Alternative header name
+          'Authorization': `Bearer ${MY_API_KEY}`, // Replace with your actual key
+          'x-api-key': MY_API_KEY, // Some APIs use this
+          'api-key': MY_API_KEY, // Alternative header name
+          'api-subscription-key': MY_API_KEY // Sarvam ai specific header
         },
         body: JSON.stringify(requestBodyv2) // switch to v2 default value = better output
       };
