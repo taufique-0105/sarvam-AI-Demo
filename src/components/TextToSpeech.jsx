@@ -25,6 +25,12 @@ const TextToSpeech = () => {
         model: "bulbul:v1"
       };
 
+      const requestBodyv2 = {
+        inputs: [text],
+        target_language_code: "en-IN",
+        model: "bulbul:v1"
+      };
+
       const options = {
         method: 'POST',
         headers: {
@@ -34,7 +40,7 @@ const TextToSpeech = () => {
           'x-api-key': 'b653a142-ba6c-4e47-b6ce-6b04f5acafcd', // Some APIs use this
           'api-key': 'b653a142-ba6c-4e47-b6ce-6b04f5acafcd' // Alternative header name
         },
-        body: JSON.stringify(requestBody)
+        body: JSON.stringify(requestBodyv2) // switch to v2 default value = better output
       };
 
       const response = await fetch('https://api.sarvam.ai/text-to-speech', options);
