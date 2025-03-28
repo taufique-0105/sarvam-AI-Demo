@@ -19,7 +19,7 @@ const TextToSpeech = () => {
     
     try {
       const requestBody = {
-        inputs: [text],
+        inputs: [text.replaceAll("\n", ". ")],
         target_language_code: "en-IN",
         speaker: "meera",
         pitch: 0,
@@ -31,7 +31,7 @@ const TextToSpeech = () => {
       };
 
       const requestBodyv2 = {
-        inputs: [text],
+        inputs: [text.replaceAll("\n", ". ")],
         target_language_code: "en-IN",
         model: "bulbul:v1"
       };
