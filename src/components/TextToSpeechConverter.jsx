@@ -6,6 +6,9 @@ function TextToSpeechConverter() {
   const [status, setStatus] = useState({ message: '', color: 'black' });
   const [isProcessing, setIsProcessing] = useState(false);
 
+  const MY_API_KEY = import.meta.env.VITE_SARVAM_API_KEY || "no key"
+  const KEY_LOAD_STATUS = MY_API_KEY == "no key" ? "❌" : "✔"
+
   const convertToSpeech = async () => {
     const text = inputText.trim();
 
@@ -18,22 +21,19 @@ function TextToSpeechConverter() {
     setAudioSrc('');
     setIsProcessing(true);
 
+    // bulbul:v1 is currently not working, switching to v2
+    
     const options = {
       method: 'POST',
       headers: {
-        'api-subscription-key': 'YOUR_API_SUBSCRIPTION_KEY',
+        'api-subscription-key': MY_API_KEY,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        speaker: "meera",
-        pitch: 0,
-        pace: 1,
-        loudness: 1,
-        speech_sample_rate: 22050,
-        enable_preprocessing: false,
+        speaker: "vidya", //optional
         target_language_code: "od-IN",
         inputs: [text],
-        model: "bulbul:v1"
+        model: "bulbul:v2" //optional
       })
     };
 
@@ -65,9 +65,11 @@ function TextToSpeechConverter() {
     <div className='text-center flex justify-center'>
       <div className='w-md shadow shadow-gray-400 p-8 flex flex-col items-center rounded-2xl'>
         <h1 className='text-2xl text-blue-500 py-5'>Text to Speech Converter</h1>
+       
+        <p>API KEY STATUS: {KEY_LOAD_STATUS} </p>
         <p>Enter your text below and click "Convert to Speech"</p>
 
-        <textarea className='border p-2 rounded-2xl bg-gray-400 my-3'
+        <textarea className='border border-blue-200 p-2 rounded-2xl bg-gray-200 my-3'
           id="inputText"
           rows="5"
           cols="50"

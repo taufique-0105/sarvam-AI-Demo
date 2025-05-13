@@ -13,7 +13,9 @@ function SpeechToText() {
   const audioChunksRef = useRef([]);
   const fileInputRef = useRef(null);
 
-  const API_KEY = 'YOUR_API_KEY';
+  const MY_API_KEY = import.meta.env.VITE_SARVAM_API_KEY || "no key"
+
+  const API_KEY = MY_API_KEY;
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
